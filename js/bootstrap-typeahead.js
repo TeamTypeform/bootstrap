@@ -1,4 +1,5 @@
 /* =============================================================
+ * @preserve
  * bootstrap-typeahead.js v2.3.1
  * http://twitter.github.com/bootstrap/javascript.html#typeahead
  * =============================================================
@@ -83,7 +84,7 @@
 
       this.query = this.$element.val()
 
-      if (!this.query || this.query.length < this.options.minLength) {
+      if (this.query.length < this.options.minLength) {
         return this.shown ? this.hide() : this
       }
 
@@ -201,6 +202,9 @@
 
       switch(e.keyCode) {
         case 9: // tab
+
+          break
+
         case 13: // enter
         case 27: // escape
           e.preventDefault()
@@ -217,7 +221,6 @@
           break
       }
 
-      e.stopPropagation()
     }
 
   , keydown: function (e) {
@@ -231,15 +234,25 @@
     }
 
   , keyup: function (e) {
+    
       switch(e.keyCode) {
-        case 40: // down arrow
         case 38: // up arrow
         case 16: // shift
         case 17: // ctrl
         case 18: // alt
           break
 
+        case 40: // down arrow
+          if (!this.shown) 
+            return this.lookup()
+          else
+            break
+
+
         case 9: // tab
+          this.hide()
+          break
+
         case 13: // enter
           if (!this.shown) return
           this.select()
