@@ -34,6 +34,9 @@
     this.sorter = this.options.sorter || this.sorter
     this.highlighter = this.options.highlighter || this.highlighter
     this.updater = this.options.updater || this.updater
+    this.onProcess = this.options.onProcess || this.onProcess
+    this.onDropdownShow = this.options.onDropdownShow || this.onDropdownShow
+    this.onDropdownHide = this.options.onDropdownHide || this.onDropdownHide
     this.source = this.options.source
     this.$menu = $(this.options.menu)
     this.shown = false
@@ -56,6 +59,12 @@
       return item
     }
 
+  , onProcess: function () {}
+
+  , onDropdownShow: function () {}
+
+  , onDropdownHide: function () {}
+
   , show: function () {
       var pos = $.extend({}, this.$element.position(), {
         height: this.$element[0].offsetHeight
@@ -68,14 +77,20 @@
         , left: pos.left
         })
         .show()
-
+      
       this.shown = true
+      
+      this.options.onDropdownShow()
+      
       return this
     }
 
   , hide: function () {
       this.$menu.hide()
       this.shown = false
+      
+      this.options.onDropdownHide()
+
       return this
     }
 
@@ -101,6 +116,8 @@
       })
 
       items = this.sorter(items)
+
+      this.onProcess(items.length)
 
       if (!items.length) {
         return this.shown ? this.hide() : this
