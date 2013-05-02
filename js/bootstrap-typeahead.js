@@ -39,6 +39,7 @@
     this.onDropdownHide = this.options.onDropdownHide || this.onDropdownHide
     this.source = this.options.source
     this.$menu = $(this.options.menu)
+    this.$menu.insertAfter(this.$element)
     this.shown = false
     this.listen()
   }
@@ -70,13 +71,7 @@
         height: this.$element[0].offsetHeight
       })
 
-      this.$menu
-        .insertAfter(this.$element)
-        .css({
-          top: pos.top + pos.height
-        , left: pos.left
-        })
-        .show()
+      this.$menu.show()
       
       this.shown = true
       
