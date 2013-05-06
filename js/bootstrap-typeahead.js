@@ -40,6 +40,9 @@
     this.source = this.options.source
     this.$menu = $(this.options.menu)
     this.$menu.insertAfter(this.$element)
+    if (this.options.wrapper){
+      this.$menu.wrap(this.options.wrapper)
+    }
     this.shown = false
     this.listen()
   }
