@@ -37,6 +37,7 @@
     this.onProcess = this.options.onProcess || this.onProcess
     this.onDropdownShow = this.options.onDropdownShow || this.onDropdownShow
     this.onDropdownHide = this.options.onDropdownHide || this.onDropdownHide
+    this.onActive = this.options.onActive || this.onActive
     this.source = this.options.source
     this.$menu = $(this.options.menu)
     this.$menu.insertAfter(this.$element)
@@ -164,6 +165,10 @@
       return this
     }
 
+  , onActive: function (elem) {
+    elem.addClass('active')
+  }
+
   , next: function (event) {
       var active = this.$menu.find('.active').removeClass('active')
         , next = active.next()
@@ -172,7 +177,7 @@
         next = $(this.$menu.find('li')[0])
       }
 
-      next.addClass('active')
+      this.onActive(next)
     }
 
   , prev: function (event) {
@@ -180,10 +185,10 @@
         , prev = active.prev()
 
       if (!prev.length) {
-        prev = this.$menu.find('li').last()
+        prev = this.$menu.find('li:last-child')
       }
 
-      prev.addClass('active')
+      this.onActive(prev)
     }
 
   , listen: function () {
