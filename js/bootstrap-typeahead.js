@@ -56,7 +56,7 @@
       this.$element
         .val(this.updater(val))
         .change()
-      return this.hide()
+      return this
     }
 
   , updater: function (item) {
