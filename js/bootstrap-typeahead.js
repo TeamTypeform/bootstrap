@@ -41,6 +41,8 @@
     this.source = this.options.source
     this.$menu = $(this.options.menu)
     this.$menu.insertAfter(this.$element)
+    this.mouseX = 0
+    this.mouseY = 0
     if (this.options.wrapper){
       this.$menu.wrap(this.options.wrapper)
     }
@@ -308,12 +310,16 @@
     }
 
   , mouseenter: function (e) {
-      this.mousedover = true
-      this.$menu.find('.active').removeClass('active')
-      $(e.currentTarget).addClass('active')
+      if (!((this.mouseX == e.pageX) && (this.mouseY == e.pageY) )){
+        this.mousedover = true
+        this.$menu.find('.active').removeClass('active')
+        $(e.currentTarget).addClass('active')
+      }
     }
 
   , mouseleave: function (e) {
+      this.mouseX = e.pageX
+      this.mouseY = e.pageY
       this.mousedover = false
       if (!this.focused && this.shown) this.hide()
     }
