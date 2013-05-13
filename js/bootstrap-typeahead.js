@@ -208,6 +208,7 @@
         .on('click', $.proxy(this.click, this))
         .on('mouseenter', 'li', $.proxy(this.mouseenter, this))
         .on('mouseleave', 'li', $.proxy(this.mouseleave, this))
+        .on('mousemove', 'li', $.proxy(this.mousemove, this))
     }
 
   , eventSupported: function(eventName) {
@@ -317,9 +318,12 @@
       }
     }
 
+  , mousemove: function (e) {
+    this.mouseX = e.pageX
+    this.mouseY = e.pageY
+
+  }
   , mouseleave: function (e) {
-      this.mouseX = e.pageX
-      this.mouseY = e.pageY
       this.mousedover = false
       if (!this.focused && this.shown) this.hide()
     }
