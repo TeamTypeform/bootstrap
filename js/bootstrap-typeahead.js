@@ -43,6 +43,7 @@
     this.$menu.insertAfter(this.$element)
     this.mouseX = 0
     this.mouseY = 0
+    this.isIe = (/msie/i.test(navigator.userAgent.toLowerCase()))
     if (this.options.wrapper){
       this.$menu.wrap(this.options.wrapper)
     }
@@ -311,7 +312,7 @@
     }
 
   , mouseenter: function (e) {
-      if (!((this.mouseX == e.pageX) && (this.mouseY == e.pageY) )){
+      if (!((this.mouseX == e.pageX) && (this.mouseY == e.pageY) ) || this.isIe){
         this.mousedover = true
         this.$menu.find('.active').removeClass('active')
         $(e.currentTarget).addClass('active')
