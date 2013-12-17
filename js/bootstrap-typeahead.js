@@ -43,7 +43,7 @@
     this.$menu.insertAfter(this.$element)
     this.mouseX = 0
     this.mouseY = 0
-    this.isIe = (/msie/i.test(navigator.userAgent.toLowerCase()))
+    this.isIe = (/(msie|trident)/i.test(navigator.userAgent.toLowerCase()))
     if (this.options.wrapper){
       this.$menu.wrap(this.options.wrapper)
     }
